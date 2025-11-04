@@ -1,0 +1,44 @@
+const User = require("../models/user.modeles");
+
+// Get all users
+exports.getUsers = async (req, res) => {
+  try {
+    const users = await User.find();
+    res.json(users);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+// Create new user
+exports.createUser = async (req, res) => {
+  try {
+    const newUser = new User(req.body);
+    await newUser.save();
+    res.status(201).json({ message: "User created successfully!" });
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+};
+
+// Update user
+exports.updateUser = async (req, res) => {
+  try {
+    const { id } = req.params;
+    await User.findByIdAndUpdate(id, req.body, { new: true });
+    res.json({ message: "User updated successfully!" });
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+};
+
+// Delete user
+exports.deleteUser = async (req, res) => {
+  try {
+    const { id } = req.params;
+    await User.findByIdAndDelete(id);
+    res.json({ message: "User deleted successfully!" });
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+};
