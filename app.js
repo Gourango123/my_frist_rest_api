@@ -13,7 +13,7 @@ app.use("/api/users", userRouter);
 
 // Root route
 app.get("/", (req, res) => {
-  res.send("Welcome to your REST API!");
+  res.send("Welcome to your REST API! !");
 });
 
 module.exports = app;
